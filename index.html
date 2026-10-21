@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>龙首谷课程安排</title>
-<meta name="description" content="DSEU 第二届先锋班 · 第七次龙首谷线下课程日程（龙首谷线下 / 国内线上）">
+<meta name="description" content="DSEU 第七次课程安排 · 龙首谷（线下 / 线上，简体 / English / 繁體）">
 <style>
 :root{
   color-scheme: dark;
@@ -60,6 +60,9 @@ header{padding:40px 0 28px;text-align:center}
 .pill-red{background:var(--red);color:#fff;padding:3px 10px;border-radius:3px}
 h1{margin:18px 0 8px;font-size:clamp(28px,4.6vw,42px);font-weight:800;letter-spacing:.04em;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 h1 .nw{white-space:nowrap}
+:lang(en) h1{letter-spacing:.01em;font-size:clamp(26px,4.2vw,40px)}
+:lang(en) h1 .nw{display:block;white-space:normal}
+:lang(en) h1 .sep{display:none}
 .sub{color:var(--muted);font-size:17.5px;letter-spacing:.06em}
 
 /* ---------- sticky control bar ---------- */
@@ -71,16 +74,19 @@ h1 .nw{white-space:nowrap}
 .seg{display:inline-flex;background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:999px;padding:3px}
 .seg button{appearance:none;border:0;background:none;color:var(--muted);font:inherit;font-size:16.5px;font-weight:600;
   padding:8px 17px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:color .2s,background .2s}
-.seg button small{font-size:12px;font-weight:600;opacity:.75;margin-left:4px}
+.seg.mode button{display:flex;flex-direction:column;align-items:center;line-height:1.15;padding:6px 18px;min-width:96px}
+.seg.mode button small{font-size:12px;font-weight:600;opacity:.72;margin-top:3px}
+.seg.lang button{font-size:14.5px;padding:8px 12px;min-width:42px}
 .seg button:hover{color:var(--ink)}
 .seg button[aria-pressed="true"]{color:#0B1B44;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .clock{font-size:15px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
 .clock b{color:var(--ink);font-weight:700}
-.printbtns{display:inline-flex;gap:6px}
 .btn{appearance:none;font:inherit;font-size:15.5px;font-weight:600;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);
   border-radius:999px;padding:7px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn:hover{background:rgba(255,255,255,.15)}
 .btn svg{width:15px;height:15px}
+.btn.icon{width:40px;height:40px;padding:0;justify-content:center}
+.btn.icon svg{width:19px;height:19px}
 
 .tabs{display:flex;gap:7px;overflow-x:auto;padding:11px 0 11px;scrollbar-width:none;scroll-snap-type:x proximity}
 .tabs::-webkit-scrollbar{display:none}
@@ -210,8 +216,12 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
   .ov{grid-template-columns:1fr}
   .dayhead .conv{text-align:left}
   .clock{display:none}
-  .seg button{font-size:15px;padding:7px 13px}
-  .printbtns{display:none}
+  .seg.mode button{font-size:15px;padding:5px 12px;min-width:0}
+  .seg.mode button small{font-size:11px}
+  .seg.lang button{font-size:13.5px;padding:7px 9px;min-width:34px}
+  .btn.icon{width:36px;height:36px}
+  .controls{gap:8px;justify-content:space-between;flex-wrap:nowrap}
+  .ctl-right{gap:8px;flex-wrap:nowrap}
   h1 .sep{display:none}
   h1 .nw{display:block}
 }
@@ -227,8 +237,7 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
   header,.bar,.pager,footer,.nowm,.nowrow{display:none!important}
   .wrap{max-width:none;padding:0 13mm}
   main{padding:0}
-  .day{break-after:page;padding:11mm 0 8mm}
-  .day:last-child{break-after:auto}
+  .day{padding:11mm 0 8mm}
   .day + .day{margin-top:0}
   .card,.panel,.bar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
   .print-title{display:flex;align-items:center;gap:10px;padding-bottom:9px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.25)}
@@ -265,33 +274,36 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
 
 <div class="wrap">
   <header>
-    <div class="logo" role="img" aria-label="金刚丝绸创业大学 DSEU">
+    <div class="logo" role="img" aria-label="DSEU">
       <img src="data:image/png;base64,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" alt="">
       <div class="lw">
         <div class="lt"><span class="dseu">DSEU</span><span class="len">Diamond Silk<br>Entrepreneur<br>University</span></div>
-        <div class="lcn">金刚丝绸创业大学</div>
+        <div class="lcn" id="lcn"></div>
       </div>
     </div>
     <div class="uni2"><span class="pill-red">PIONEER CLASS</span><span>ACADEMIC SESSION</span></div>
-    <h1><span class="nw">DSEU 第七次课程安排</span> <span class="nw"><span class="sep">· </span>龙首谷</span></h1>
-    <div class="sub">金刚丝绸创业大学第二届先锋班课程</div>
+    <h1 id="title"></h1>
+    <div class="sub" id="sub"></div>
   </header>
 </div>
 
 <div class="bar">
   <div class="wrap">
     <div class="controls">
-      <div class="seg" id="tzSeg" role="group" aria-label="时区">
-        <button data-tz="az">龙首谷时间<small>线下</small></button>
-        <button data-tz="bj">国内时间<small>线上</small></button>
+      <div class="seg mode" id="tzSeg" role="group">
+        <button data-tz="az"></button>
+        <button data-tz="bj"></button>
       </div>
       <div class="ctl-right">
         <div class="clock" id="clock"></div>
-        <div class="printbtns">
-          <button class="btn" id="printDay" title="打印当前这一天，可在打印窗口选择「另存为 PDF」">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg>打印当天</button>
-          <button class="btn" id="printAll" title="每天一页打印全部日程">打印全部</button>
+        <div class="seg lang" id="langSeg" role="group" aria-label="Language">
+          <button data-lang="zh" lang="zh-CN">简</button>
+          <button data-lang="en" lang="en">EN</button>
+          <button data-lang="zt" lang="zh-Hant">繁</button>
         </div>
+        <button class="btn icon" id="printBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg>
+        </button>
       </div>
     </div>
     <nav class="tabs" id="tabs" role="tablist"></nav>
@@ -300,52 +312,92 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
 
 <div class="wrap">
   <main id="main"></main>
-  <footer>
-    龙首谷位于美国亚利桑那州（全年不实行夏令时，UTC−7）· 北京时间 = 龙首谷时间 + 15 小时<br>
-    国内时间只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期 · 打印窗口中选择「另存为 PDF」即可导出
-  </footer>
+  <footer id="foot"></footer>
 </div>
 
 <script>
 (function(){
-const TZ = {
-  az:{off:-7, name:'龙首谷时间', short:'亚利桑那 UTC−7'},
-  bj:{off:8,  name:'北京时间',   short:'UTC+8'}
+/* ---------- languages: zh = 简体, en = English, zt = 繁體 ---------- */
+const LANGS = {zh:'zh-CN', en:'en', zt:'zh-Hant'};
+// L(zh, en, zt) — every user-visible string comes in all three
+const L = (zh, en, zt) => ({zh, en, zt});
+const UI = {
+  title1: L('DSEU 第七次课程安排','DSEU Session 7 Schedule','DSEU 第七次課程安排'),
+  title2: L('龙首谷','Dragon Head Valley','龍首谷'),
+  sub:    L('金刚丝绸创业大学第二届先锋班课程','Diamond Silk Entrepreneur University · 2nd Pioneer Class','金剛絲綢創業大學第二屆先鋒班課程'),
+  uniCn:  L('金刚丝绸创业大学','金刚丝绸创业大学','金剛絲綢創業大學'),
+  onsite: L('线下','On-site','線下'),
+  online: L('线上','Online','線上'),
+  azTime: L('龙首谷时间','Valley time','龍首谷時間'),
+  bjTime: L('北京时间','Beijing time','北京時間'),
+  azShort:L('亚利桑那 UTC−7','Arizona · UTC−7','亞利桑那 UTC−7'),
+  bjShort:L('UTC+8','UTC+8','UTC+8'),
+  azClock:L('龙首谷','Valley','龍首谷'),
+  bjClock:L('北京','Beijing','北京'),
+  modeAria:L('线上 / 线下','On-site / Online','線上 / 線下'),
+  overview:L('总览','Overview','總覽'),
+  ovKicker:L('OVERVIEW · 总览','OVERVIEW','OVERVIEW · 總覽'),
+  itinerary:L('行程 · ITINERARY','ITINERARY','行程 · ITINERARY'),
+  bjList: L('国内可参加 · BEIJING TIME','JOIN FROM CHINA · BEIJING TIME','國內可參加 · BEIJING TIME'),
+  bjNote: L('只列出北京时间 06:00 以后的课程与直播；其余为北京时间凌晨或线下活动',
+            'Only classes and livestreams from 06:00 Beijing time are listed; the rest fall in the early hours in China or are on-site only',
+            '只列出北京時間 06:00 以後的課程與直播；其餘為北京時間凌晨或線下活動'),
+  counts: L('课程数量 · NUMBER OF COURSES','NUMBER OF COURSES','課程數量 · NUMBER OF COURSES'),
+  legend: L('颜色说明 · COLOUR KEY','COLOUR KEY','顏色說明 · COLOUR KEY'),
+  today:  L('今天','Today','今天'),
+  more:   L(' 等',' …',' 等'),
+  gap:    L('空档','Break','空檔'),
+  now:    L('现在','Now','現在'),
+  prev:   L('← 上一页','← Previous','← 上一頁'),
+  next:   L('下一页 →','Next →','下一頁 →'),
+  print:  L('打印当前页面（可在打印窗口选择「另存为 PDF」）','Print this page (choose “Save as PDF” in the print dialog)','列印目前頁面（可在列印視窗選擇「另存為 PDF」）'),
+  foot1:  L('龙首谷位于美国亚利桑那州（全年不实行夏令时，UTC−7）· 北京时间 = 龙首谷时间 + 15 小时',
+            'Dragon Head Valley is in Arizona, USA (no daylight saving, UTC−7) · Beijing time = Valley time + 15 h',
+            '龍首谷位於美國亞利桑那州（全年不實行夏令時，UTC−7）· 北京時間 = 龍首谷時間 + 15 小時'),
+  foot2:  L('线上只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期',
+            'Online shows only the classes and livestreams at a suitable Beijing time · Use ← → or swipe to change day',
+            '線上只顯示北京時間適合參加的課程與直播 · 鍵盤 ← → 或左右滑動切換日期'),
+  dateRangeAz: L('10月17日 – 10月29日','Oct 17 – Oct 29','10月17日 – 10月29日'),
 };
-const TRACKS = ['SLP','PEP','YLP'];
-const WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+const WEEK = {
+  zh:['周日','周一','周二','周三','周四','周五','周六'],
+  zt:['週日','週一','週二','週三','週四','週五','週六'],
+  en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+};
+const MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const CN = ['一','二','三','四','五','六','七','八'];
+const TRACKS = ['SLP','PEP','YLP'];
 
-const E = (cat, zh, en) => ({cat, zh, en});
-const lunch = E('gen','午餐','Lunch');
-const gd    = E('gen','小组讨论','Group Discussion');
-const audit = E('audit','旁听','Audit');
-const dhd   = E('dhd','DHD 龙首谷建设课','DHD Dragon Head Valley Development Class');
-const tba   = E('free','待安排','To be arranged');
-const prep  = E('act','节目彩排 + 周年庆准备','Rehearsal + Anniversary Preparation');
-const reh   = E('act','节目彩排','Rehearsal');
-const rox = n => E('rox','Roxanne · 责任领导与企业责任 '+n,'Roxanne – Responsible Leadership & Corporate Responsibility '+n);
-const gmr = (zh, en) => E('gmr', zh, en || zh);
-const pep1 = gmr('GMR PEP 1 · 企业社会责任','GMR PEP 1 – CSR (Corporate Social Responsibility)');
-const pep2 = gmr('GMR PEP 2 · 企业社会责任','GMR PEP 2 – CSR (Corporate Social Responsibility)');
-const pep3 = gmr('GMR PEP 3 · 责任型领导','GMR PEP 3 – Responsible Leadership');
-const pep4 = gmr('GMR PEP 4 · 责任型领导','GMR PEP 4 – Responsible Leadership');
-const med1 = E('med','冥想课 1 · 陈唐教授','Meditation Class 1 – Prof. Chen Tang');
-const med2 = E('med','冥想课 2 · 陈唐教授','Meditation Class 2 – Prof. Chen Tang');
-const letter = n => E('med','亲友书 '+n+' · 陈教授','Letter to a Friend '+n+' – Prof. Chen');
-const ocean1 = E('med','正理海 1 · 陈唐教授','Ocean of Reasoning 1 – Prof. Chen Tang');
-const zhou  = E('med','周校长 · 周年庆演讲','President Xiaoping Zhou – Anniversary Speech');
-const chen  = E('med','陈教授 · 周年庆演讲','Prof. Stanley Chen – Anniversary Speech');
-const trans = E('gen','转场','Transition');
-const concert = E('act','周年庆音乐会','Anniversary Concert');
-const live = 'live';  // marks the livestreamed anniversary sessions (kept in the China-time view)
+const E = (cat, zh, en, zt) => ({cat, zh, en, zt});
+const lunch = E('gen','午餐','Lunch','午餐');
+const gd    = E('gen','小组讨论','Group Discussion','小組討論');
+const audit = E('audit','旁听','Audit','旁聽');
+const dhd   = E('dhd','DHD 龙首谷建设课','DHD Valley Development Class','DHD 龍首谷建設課');
+const tba   = E('free','待安排','To be arranged','待安排');
+const prep  = E('act','节目彩排 + 周年庆准备','Rehearsal + Anniversary Preparation','節目彩排 + 週年慶準備');
+const reh   = E('act','节目彩排','Rehearsal','節目彩排');
+const rox = n => E('rox','Roxanne · 责任领导与企业责任 '+n,'Roxanne · Responsible Leadership & Corporate Responsibility '+n,'Roxanne · 責任領導與企業責任 '+n);
+const gmr = (zh, en, zt) => E('gmr', zh, en || zh, zt || zh);
+const pep1 = gmr('GMR PEP 1 · 企业社会责任','GMR PEP 1 · Corporate Social Responsibility','GMR PEP 1 · 企業社會責任');
+const pep2 = gmr('GMR PEP 2 · 企业社会责任','GMR PEP 2 · Corporate Social Responsibility','GMR PEP 2 · 企業社會責任');
+const pep3 = gmr('GMR PEP 3 · 责任型领导','GMR PEP 3 · Responsible Leadership','GMR PEP 3 · 責任型領導');
+const pep4 = gmr('GMR PEP 4 · 责任型领导','GMR PEP 4 · Responsible Leadership','GMR PEP 4 · 責任型領導');
+const med1 = E('med','冥想课 1 · 陈唐教授','Meditation Class 1 · Prof. Chen Tang','冥想課 1 · 陳唐教授');
+const med2 = E('med','冥想课 2 · 陈唐教授','Meditation Class 2 · Prof. Chen Tang','冥想課 2 · 陳唐教授');
+const letter = n => E('med','亲友书 '+n+' · 陈教授','Letter to a Friend '+n+' · Prof. Chen','親友書 '+n+' · 陳教授');
+const ocean1 = E('med','正理海 1 · 陈唐教授','Ocean of Reasoning 1 · Prof. Chen Tang','正理海 1 · 陳唐教授');
+const zhou  = E('med','周校长 · 周年庆演讲','President Xiaoping Zhou · Anniversary Speech','周校長 · 週年慶演講');
+const chen  = E('med','陈教授 · 周年庆演讲','Prof. Stanley Chen · Anniversary Speech','陳教授 · 週年慶演講');
+const trans = E('gen','转场','Transition','轉場');
+const concert = E('act','周年庆音乐会','Anniversary Concert','週年慶音樂會');
+const live = 'live';  // marks the livestreamed anniversary sessions (kept in the online view)
 const all = e => [[e,0,3]];
 
-// slot: [start, end, cells[[event, col, span]], note?, mode?]  — times are wall times in the schedule's own zone
+// slot: [start, end, cells[[event, col, span]], live?] — times are wall times in the schedule's own zone
 // 线下（龙首谷 / 亚利桑那时间）
 const ONSITE = [
  {n:1, d:21, slots:[
-  ['10:00','12:00', all(E('gen','团队和义工做最后搭建','Final Setup by Team and Volunteers'))],
+  ['10:00','12:00', all(E('gen','团队和义工做最后搭建','Final Setup by Team and Volunteers','團隊和義工做最後搭建'))],
   ['12:00','12:30', all(lunch)],
   ['16:00','17:15', [[audit,0,1],[pep1,1,1],[audit,2,1]]],
   ['17:45','18:45', [[audit,0,1],[pep2,1,1],[audit,2,1]]],
@@ -367,16 +419,16 @@ const ONSITE = [
   ['17:30','18:30', [[gmr('GMR SLP 2'),0,1],[gd,1,1],[gd,2,1]]],
  ]},
  {n:4, d:24, slots:[
-  ['10:00','11:00', all(E('med','冥想课','Meditation Class'))],
-  ['11:00','12:00', all(gmr('玄奘塔翻译课','XZ Tower – Xuanzang Tower Translation Class'))],
+  ['10:00','11:00', all(E('med','冥想课','Meditation Class','冥想課'))],
+  ['11:00','12:00', all(gmr('玄奘塔翻译课','XZ Tower · Xuanzang Tower Translation Class','玄奘塔翻譯課'))],
   ['12:00','13:00', all(lunch)],
   ['15:00','16:15', [[gd,0,1],[rox(3),1,2]]],
   ['16:45','18:00', [[ocean1,0,1],[gd,1,1],[gd,2,1]]],
  ]},
  {n:5, d:25, slots:[
-  ['09:00','12:00', all(E('dhd','建设课 + 周年庆节目排练','Development Class + Anniversary Performance Rehearsal'))],
+  ['09:00','12:00', all(E('dhd','建设课 + 周年庆节目排练','Development Class + Anniversary Performance Rehearsal','建設課 + 週年慶節目排練'))],
   ['12:00','15:30', all(tba)],
-  ['15:30','17:00', all(E('act','圣多纳粉红吉普之旅','Sedona Pink Jeep Tour'))],
+  ['15:30','17:00', all(E('act','圣多纳粉红吉普之旅','Sedona Pink Jeep Tour','聖多納粉紅吉普之旅'))],
  ]},
  {n:6, d:26, slots:[
   ['09:00','11:00', all(med2)],
@@ -384,15 +436,15 @@ const ONSITE = [
   ['12:00','13:00', all(lunch)],
   ['14:45','15:45', all(tba)],
   ['16:00','17:15', [[gmr('GMR SLP 3'),0,1],[gd,1,1],[gd,2,1]]],
-  ['17:45','18:45', [[audit,0,1],[audit,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang'),2,1]]],
+  ['17:45','18:45', [[audit,0,1],[audit,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang','陳唐教授授課'),2,1]]],
  ]},
  {n:7, d:27, slots:[
-  ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置','DH Development Class – Anniversary Venue / Concert Setup'))],
+  ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置','Development Class · Anniversary Venue / Concert Setup','建設課 · 週年慶會場 / 音樂會佈置'))],
   ['10:45','12:00', all(reh)],
   ['12:00','13:00', all(lunch)],
-  ['14:30','15:45', all(E('gen','小组展示','Group Presentation'))],
+  ['14:30','15:45', all(E('gen','小组展示','Group Presentation','小組展示'))],
   ['16:00','17:15', all(pep4)],
-  ['17:45','18:45', all(E('act','GMR 节目彩排','GMR Rehearsal'))],
+  ['17:45','18:45', all(E('act','GMR 节目彩排','GMR Rehearsal','GMR 節目彩排'))],
  ]},
  {n:8, d:28, slots:[
   ['09:00','12:00', all(prep)],
@@ -400,68 +452,69 @@ const ONSITE = [
   ['14:00','16:00', all(prep)],
   ['16:00','16:20', all(zhou), live],
   ['16:20','16:40', all(chen), live],
-  ['17:00','18:00', all(gmr('PEP 5 · 责任型领导','PEP 5: Responsible Leadership')), live],
+  ['17:00','18:00', all(gmr('PEP 5 · 责任型领导','PEP 5 · Responsible Leadership','PEP 5 · 責任型領導')), live],
   ['18:00','18:30', all(trans), live],
   ['18:30','20:30', all(concert), live],
  ]},
 ];
 
-
 const TRIP = [
-  [17,'抵达三藩市','Arrival – SF'],
-  [18,'斯坦福大学','Stanford'],
-  [19,'英伟达','NVIDIA'],
-  [20,'三藩市 → 凤凰城 → 龙首谷','SF – PHX – DH'],
-  [21,'课程','Lecture',1],[22,'课程','Lecture',2],[23,'课程','Lecture',3],
-  [24,'课程 · 玄奘塔（上午）','Lecture · XZ Tower (AM)',4],
-  [25,'课程','Lecture',5],[26,'课程','Lecture',6],[27,'课程','Lecture',7],
-  [28,'周年庆典 + 音乐会','Anniversary Ceremony + Concert',8],
-  [29,'离开','Departure'],
+  [17, L('抵达三藩市','Arrive in San Francisco','抵達三藩市')],
+  [18, L('斯坦福大学','Stanford','史丹佛大學')],
+  [19, L('英伟达','NVIDIA','輝達')],
+  [20, L('三藩市 → 凤凰城 → 龙首谷','SF → Phoenix → Dragon Head Valley','三藩市 → 鳳凰城 → 龍首谷')],
+  [21, L('课程','Classes','課程'),1],[22, L('课程','Classes','課程'),2],[23, L('课程','Classes','課程'),3],
+  [24, L('课程 · 玄奘塔（上午）','Classes · XZ Tower (AM)','課程 · 玄奘塔（上午）'),4],
+  [25, L('课程','Classes','課程'),5],[26, L('课程','Classes','課程'),6],[27, L('课程','Classes','課程'),7],
+  [28, L('周年庆典 + 音乐会','Anniversary Ceremony + Concert','週年慶典 + 音樂會'),8],
+  [29, L('离开','Departure','離開')],
 ];
 const COUNTS = [
-  ['GMR SLP','',4],
-  ['GMR PEP · 企业社会责任','Corporate Social Responsibility',2],
-  ['GMR PEP · 责任型领导','Responsible Leadership',2],
-  ['GMR YLP','',3],
-  ['玄奘塔 + 冥想','XZ Tower + Meditation',2],
-  ['亲友书 · 陈教授','Letter to a Friend – Prof. Chen',2],
-  ['冥想课 · SC','Meditation Class – SC',2],
-  ['Roxanne · 责任领导与企业责任','Responsible Leadership & Corporate Responsibility',3],
-  ['学长分享','Alumni Sharing',1],
+  [L('GMR SLP','GMR SLP','GMR SLP'),4],
+  [L('GMR PEP · 企业社会责任','GMR PEP · Corporate Social Responsibility','GMR PEP · 企業社會責任'),2],
+  [L('GMR PEP · 责任型领导','GMR PEP · Responsible Leadership','GMR PEP · 責任型領導'),2],
+  [L('GMR YLP','GMR YLP','GMR YLP'),3],
+  [L('玄奘塔 + 冥想','XZ Tower + Meditation','玄奘塔 + 冥想'),2],
+  [L('亲友书 · 陈教授','Letter to a Friend · Prof. Chen','親友書 · 陳教授'),2],
+  [L('冥想课 · SC','Meditation Class · SC','冥想課 · SC'),2],
+  [L('Roxanne · 责任领导与企业责任','Roxanne · Responsible Leadership & Corporate Responsibility','Roxanne · 責任領導與企業責任'),3],
+  [L('学长分享','Alumni Sharing','學長分享'),1],
 ];
 const LEGEND = [
-  ['gmr','GMR 课程 · 玄奘塔'],['med','冥想 · 陈教授 · 演讲'],
-  ['rox','Roxanne · 责任领导'],['dhd','龙首谷建设'],
-  ['act','活动 · 彩排 · 音乐会'],['gen','用餐 · 讨论 · 其他'],
+  ['gmr', L('GMR 课程 · 玄奘塔','GMR programs · XZ Tower','GMR 課程 · 玄奘塔')],
+  ['med', L('冥想 · 陈教授 · 演讲','Meditation · Prof. Chen · Speeches','冥想 · 陳教授 · 演講')],
+  ['rox', L('Roxanne · 责任领导','Roxanne · Responsible Leadership','Roxanne · 責任領導')],
+  ['dhd', L('龙首谷建设','Valley development','龍首谷建設')],
+  ['act', L('活动 · 彩排 · 音乐会','Activities · Rehearsals · Concert','活動 · 彩排 · 音樂會')],
+  ['gen', L('用餐 · 讨论 · 其他','Meals · Discussions · General','用餐 · 討論 · 其他')],
 ];
 
 /* ---------- time helpers (fixed offsets, no DST in AZ or China) ---------- */
+const OFF = {az:-7, bj:8};
 const toMin = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
 // absolute ms for a wall time <hm> on Oct <day>, 2026 in zone <z>
-const abs = (z, day, hm) => Date.UTC(2026, 9, day) + (toMin(hm) - TZ[z].off*60) * 60000;
-const wall = (ms, z) => new Date(ms + TZ[z].off*3600000); // read with getUTC*
+const abs = (z, day, hm) => Date.UTC(2026, 9, day) + (toMin(hm) - OFF[z]*60) * 60000;
+const wall = (ms, z) => new Date(ms + OFF[z]*3600000); // read with getUTC*
 const pad = n => String(n).padStart(2,'0');
 const hm = d => pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());
 const md = d => (d.getUTCMonth()+1)+'/'+d.getUTCDate();
-const mdCN = d => (d.getUTCMonth()+1)+'月'+d.getUTCDate()+'日';
-const dur = m => { const h = Math.floor(m/60), r = m%60; return h ? (h+'小时'+(r? r+'分':'')) : r+'分钟'; };
 const dateOf = day => new Date(Date.UTC(2026, 9, day.d));
 
-// 国内（北京时间）: the on-site sessions that fall at a reasonable hour in China (from 06:00),
+// 线上（北京时间）: the on-site sessions that fall at a reasonable hour in China (from 06:00),
 // keeping only classes and the livestream; lunch, discussions, development classes etc. are on-site only
 const COURSE = new Set(['gmr','med','rox']);
 const EARLIEST_BJ = 6;
 const ONLINE = ONSITE.map(day => {
   const slots = [];
   let d = null;
-  for (const [s, e, cells, note] of day.slots){
+  for (const [s, e, cells, flag] of day.slots){
     const bs = wall(abs('az', day.d, s), 'bj'), be = wall(abs('az', day.d, e), 'bj');
     if (bs.getUTCHours() < EARLIEST_BJ) continue;
-    const isLive = note === live;
+    const isLive = flag === live;
     if (!isLive && !cells.some(([ev]) => COURSE.has(ev.cat))) continue;
     const keep = isLive ? cells : cells.filter(([ev]) => COURSE.has(ev.cat) || ev.cat === 'audit');
     d = d || bs.getUTCDate();
-    slots.push([hm(bs), hm(be), keep, note]);
+    slots.push([hm(bs), hm(be), keep, flag]);
   }
   return {n: day.n, d, slots};
 }).filter(day => day.slots.length);
@@ -473,6 +526,11 @@ const store = {
   set(k,v){ try{ localStorage.setItem('dseu7.'+k, v); }catch(e){} }
 };
 let tz = store.get('tz') || (new Date().getTimezoneOffset() === 420 ? 'az' : 'bj');
+let lang = store.get('lang');
+if (!LANGS[lang]){
+  const nav = (navigator.language || 'zh').toLowerCase();
+  lang = /^zh-(tw|hk|mo|hant)/.test(nav) ? 'zt' : nav.startsWith('zh') ? 'zh' : 'en';
+}
 let page = 0;
 const days = () => SCHED[tz];
 
@@ -488,20 +546,53 @@ function todayN(z){
   else page = Math.max(0, todayN(tz));
 })();
 
+/* ---------- localized formatting ---------- */
+const t = k => UI[k][lang];
+const nm = o => o[lang];
+const week = d => WEEK[lang][d.getUTCDay()];
+const longDate = d => lang === 'en'
+  ? `${week(d)}, ${MONTH_EN[d.getUTCMonth()]} ${d.getUTCDate()}`
+  : `${d.getUTCMonth()+1}月${d.getUTCDate()}日 · ${week(d)}`;
+const shortDate = d => lang === 'en' ? `${MONTH_EN[d.getUTCMonth()]} ${d.getUTCDate()}` : `${d.getUTCMonth()+1}月${d.getUTCDate()}日`;
+const dur = m => {
+  const h = Math.floor(m/60), r = m%60;
+  if (lang === 'en') return [h ? h+' h' : '', r ? r+' min' : ''].filter(Boolean).join(' ');
+  const H = lang === 'zt' ? '小時' : '小时', M = lang === 'zt' ? '分鐘' : '分钟';
+  return h ? (h+H+(r ? r+'分' : '')) : r+M;
+};
+const dayKicker = day => lang === 'en' ? `DAY ${day.n}` : `DAY ${day.n} · 第${CN[day.n-1]}天`;
+const tzName = z => t(z === 'az' ? 'azTime' : 'bjTime');
+const tzPill = () => `${tzName(tz)} · ${t(tz === 'az' ? 'azShort' : 'bjShort')}`;
+
 /* ---------- rendering ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const dayKicker = day => `DAY ${day.n} · 第${CN[day.n-1]}天`;
+
+function renderChrome(){
+  document.documentElement.lang = LANGS[lang];
+  document.title = `${t('title1')} · ${t('title2')}`;
+  $('#title').innerHTML = `<span class="nw">${esc(t('title1'))}</span> <span class="nw"><span class="sep">· </span>${esc(t('title2'))}</span>`;
+  $('#sub').textContent = t('sub');
+  $('#lcn').textContent = t('uniCn');
+  $('#foot').innerHTML = `${esc(t('foot1'))}<br>${esc(t('foot2'))}`;
+  $('#tzSeg').setAttribute('aria-label', t('modeAria'));
+  $('#tzSeg [data-tz="az"]').innerHTML = `${esc(t('onsite'))}<small>${esc(t('azTime'))}</small>`;
+  $('#tzSeg [data-tz="bj"]').innerHTML = `${esc(t('online'))}<small>${esc(t('bjTime'))}</small>`;
+  document.querySelectorAll('#tzSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.tz === tz));
+  document.querySelectorAll('#langSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  $('#printBtn').title = t('print');
+  $('#printBtn').setAttribute('aria-label', t('print'));
+}
 
 function renderTabs(){
-  const t = todayN(tz), list = days();
-  const range = `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
-  let html = `<button class="tab" role="tab" data-p="0" aria-selected="${page===0}"><span class="t1">总览</span><span class="t2">${tz==='az'?'10/17–10/29':range}</span></button>`;
+  const tn = todayN(tz), list = days();
+  const range = tz === 'az' ? '10/17–10/29' : `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
+  let html = `<button class="tab" role="tab" data-p="0" aria-selected="${page===0}"><span class="t1">${esc(t('overview'))}</span><span class="t2">${range}</span></button>`;
   list.forEach((day, i) => {
     const d = dateOf(day), p = i + 1;
     html += `<button class="tab" role="tab" data-p="${p}" aria-selected="${page===p}">
-      <span class="t1">DAY ${day.n}${p===t?'<i class="today" title="今天"></i>':''}</span>
-      <span class="t2">${md(d)} ${WEEK[d.getUTCDay()]}</span></button>`;
+      <span class="t1">DAY ${day.n}${p===tn?`<i class="today" title="${esc(t('today'))}"></i>`:''}</span>
+      <span class="t2">${md(d)} ${week(d)}</span></button>`;
   });
   $('#tabs').innerHTML = html;
   // scroll only the tab strip, never the page
@@ -515,13 +606,15 @@ function cardHTML(ev, col, span){
   const gc = `${col+1} / span ${span}`;
   return `<div class="${cls}" style="grid-column:${gc};--gc:${gc}">
     ${badge?`<div class="badge">${badge}</div>`:''}
-    <div class="zh">${esc(ev.zh)}</div>
+    <div class="zh">${esc(nm(ev))}</div>
   </div>`;
 }
 
 function nowMarker(ms, top){
-  return `<div class="nowm" id="nowm" style="top:${top}"><span class="np">现在 ${hm(wall(ms, tz))}</span><span class="nd"></span><span class="nl"></span></div>`;
+  return `<div class="nowm" id="nowm" style="top:${top}"><span class="np">${esc(t('now'))} ${hm(wall(ms, tz))}</span><span class="nd"></span><span class="nl"></span></div>`;
 }
+
+const printTitle = () => `<div class="print-title"><img src="data:image/png;base64,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" alt=""><div><div class="pt1">DSEU · PIONEER CLASS</div><div class="pt2">${esc(t('title1'))} · ${esc(t('title2'))} · ${esc(t(tz === 'az' ? 'onsite' : 'online'))}</div></div></div>`;
 
 function renderDay(day, withNow){
   const now = Date.now();
@@ -530,10 +623,10 @@ function renderDay(day, withNow){
   // build tree rows: slots plus the free gaps between them
   const items = [];
   let lastEnd = null;
-  for (const [s, e, cells, note] of day.slots){
+  for (const [s, e, cells] of day.slots){
     const a = abs(tz, day.d, s), b = abs(tz, day.d, e);
     if (lastEnd !== null && a - lastEnd >= 10*60000) items.push({gap:true, a:lastEnd, b:a});
-    items.push({a, b, s, e, cells, note});
+    items.push({a, b, s, e, cells});
     lastEnd = lastEnd === null ? b : Math.max(lastEnd, b);
   }
 
@@ -556,7 +649,7 @@ function renderDay(day, withNow){
     const top = it.gap ? `${(nowFrac*100).toFixed(2)}%` : `calc((100% - 16px) * ${nowFrac.toFixed(4)})`;
     const marker = i === nowIdx ? nowMarker(now, top) : '';
     if (it.gap){
-      rows += `<div class="row gap${pos}">${marker}<div class="tl"></div><div class="rail"></div><div class="gapt">空档 · ${dur(Math.round((it.b-it.a)/60000))}</div></div>`;
+      rows += `<div class="row gap${pos}">${marker}<div class="tl"></div><div class="rail"></div><div class="gapt">${esc(t('gap'))} · ${dur(Math.round((it.b-it.a)/60000))}</div></div>`;
       return;
     }
     let body = it.cells.map(([ev,c,sp]) => cardHTML(ev, c, sp)).join('');
@@ -571,10 +664,10 @@ function renderDay(day, withNow){
   if (nowIdx === items.length) rows += `<div class="row nowrow last"><div class="tl"></div><div class="rail"></div>${nowMarker(now,'50%')}</div>`;
 
   return `<section class="day">
-  <div class="print-title"><img src="data:image/png;base64,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" alt=""><div><div class="pt1">DSEU · PIONEER CLASS</div><div class="pt2">DSEU 第七次课程安排 · 龙首谷${tz==='bj'?'（国内线上）':''}</div></div></div>
+  ${printTitle()}
   <div class="dayhead">
-    <div><div class="k">${dayKicker(day)}</div><h2>${mdCN(first)} · ${WEEK[first.getUTCDay()]}</h2></div>
-    <div class="conv"><span class="tzpill">${TZ[tz].name} · ${TZ[tz].short}</span></div>
+    <div><div class="k">${dayKicker(day)}</div><h2>${longDate(first)}</h2></div>
+    <div class="conv"><span class="tzpill">${esc(tzPill())}</span></div>
   </div>
   <div class="row colhead"><div class="cols"><span>SLP</span><span>PEP</span><span>YLP</span></div></div>
   <div class="tree">${rows}</div>
@@ -582,56 +675,59 @@ function renderDay(day, withNow){
 }
 
 function renderOverview(){
-  const t = todayN(tz);
-  const legend = LEGEND.map(([c,l]) => `<span class="c-${c}"><i></i>${l}</span>`).join('');
-  let left;
+  const tn = todayN(tz);
+  const dw = d => ['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getUTCDay()];
+  const go = (n, isToday) => `<span class="go">DAY ${n}${isToday?' · '+esc(t('today')):''} ›</span>`;
+  let left, range;
   if (tz === 'az'){
-    left = `<h3>行程 · ITINERARY</h3><ul class="trip">` + TRIP.map(([d,zh,en,n]) => {
+    range = t('dateRangeAz');
+    left = `<h3>${esc(t('itinerary'))}</h3><ul class="trip">` + TRIP.map(([d, label, n]) => {
       const dt = new Date(Date.UTC(2026,9,d));
       return `<li class="${n?'link':''}" ${n?`data-p="${n}"`:''}>
-        <span class="dw">${['SUN','MON','TUE','WED','THU','FRI','SAT'][dt.getUTCDay()]}</span>
-        <span class="dt">10/${d}</span>
-        <span class="ev">${esc(zh)}${n?`<span class="go">DAY ${n}${n===t?' · 今天':''} ›</span>`:''}</span></li>`;
+        <span class="dw">${dw(dt)}</span><span class="dt">10/${d}</span>
+        <span class="ev">${esc(nm(label))}${n?go(n, n===tn):''}</span></li>`;
     }).join('') + `</ul>`;
   } else {
-    left = `<h3>国内可参加 · BEIJING TIME</h3><ul class="trip">` + ONLINE.map((day, i) => {
+    range = `${shortDate(dateOf(ONLINE[0]))} – ${shortDate(dateOf(ONLINE[ONLINE.length-1]))}`;
+    left = `<h3>${esc(t('bjList'))}</h3><ul class="trip">` + ONLINE.map((day, i) => {
       const dt = dateOf(day);
-      const names = [...new Set(day.slots.flatMap(s => s[2]).filter(([ev]) => ev.cat !== 'audit').map(([ev]) => ev.zh))];
+      const names = [...new Set(day.slots.flatMap(s => s[2]).filter(([ev]) => ev.cat !== 'audit').map(([ev]) => nm(ev)))];
       return `<li class="link" data-p="${i+1}">
-        <span class="dw">${['SUN','MON','TUE','WED','THU','FRI','SAT'][dt.getUTCDay()]}</span>
-        <span class="dt">${md(dt)}</span>
-        <span class="ev">${day.slots[0][0]} – ${day.slots[day.slots.length-1][1]}<span class="go">DAY ${day.n}${i+1===t?' · 今天':''} ›</span><small>${esc(names.slice(0,3).join(' · '))}${names.length>3?' 等':''}</small></span></li>`;
-    }).join('') + `</ul><div class="gapt" style="padding:12px 0 0">只列出北京时间 06:00 以后的课程与直播；其余为北京时间凌晨或线下活动</div>`;
+        <span class="dw">${dw(dt)}</span><span class="dt">${md(dt)}</span>
+        <span class="ev">${day.slots[0][0]} – ${day.slots[day.slots.length-1][1]}${go(day.n, i+1===tn)}<small>${esc(names.slice(0,3).join(' · '))}${names.length>3?esc(t('more')):''}</small></span></li>`;
+    }).join('') + `</ul><div class="gapt" style="padding:12px 0 0">${esc(t('bjNote'))}</div>`;
   }
-  const counts = COUNTS.map(([zh,en,c]) => `<tr><td>${esc(zh)}</td><td>${c}</td></tr>`).join('');
+  const counts = COUNTS.map(([label,c]) => `<tr><td>${esc(nm(label))}</td><td>${c}</td></tr>`).join('');
+  const legend = LEGEND.map(([c,label]) => `<span class="c-${c}"><i></i>${esc(nm(label))}</span>`).join('');
   return `<section class="day">
-  <div class="dayhead"><div><div class="k">OVERVIEW · 总览</div><h2>${tz==='az'?'10月17日 – 10月29日':`${mdCN(dateOf(ONLINE[0]))} – ${mdCN(dateOf(ONLINE[ONLINE.length-1]))}`}</h2></div>
-    <div class="conv"><span class="tzpill">${TZ[tz].name} · ${TZ[tz].short}</span></div></div>
+  ${printTitle()}
+  <div class="dayhead"><div><div class="k">${esc(t('ovKicker'))}</div><h2>${esc(range)}</h2></div>
+    <div class="conv"><span class="tzpill">${esc(tzPill())}</span></div></div>
   <div class="ov">
     <div class="panel">${left}</div>
     <div class="stack">
-      <div class="panel"><h3>课程数量 · NUMBER OF COURSES</h3><table class="cnt">${counts}</table></div>
-      <div class="panel"><h3>颜色说明 · COLOUR KEY</h3><div class="legend">${legend}</div></div>
+      <div class="panel"><h3>${esc(t('counts'))}</h3><table class="cnt">${counts}</table></div>
+      <div class="panel"><h3>${esc(t('legend'))}</h3><div class="legend">${legend}</div></div>
     </div>
   </div></section>`;
 }
 
 function pager(){
   return `<div class="pager">
-    <button data-step="-1" ${page===0?'disabled':''}>← 上一页</button>
-    <button data-step="1" ${page===days().length?'disabled':''}>下一页 →</button></div>`;
+    <button data-step="-1" ${page===0?'disabled':''}>${esc(t('prev'))}</button>
+    <button data-step="1" ${page===days().length?'disabled':''}>${esc(t('next'))}</button></div>`;
 }
 
 function renderClock(){
   const n = Date.now(), a = wall(n,'az'), b = wall(n,'bj');
-  $('#clock').innerHTML = `<span>龙首谷 <b>${md(a)} ${hm(a)}</b></span><span>北京 <b>${md(b)} ${hm(b)}</b></span>`;
+  $('#clock').innerHTML = `<span>${esc(t('azClock'))} <b>${md(a)} ${hm(a)}</b></span><span>${esc(t('bjClock'))} <b>${md(b)} ${hm(b)}</b></span>`;
 }
 
-function renderMain(){
-  $('#main').innerHTML = (page === 0 ? renderOverview() : renderDay(days()[page-1], true)) + pager();
+function renderMain(withNow = true){
+  $('#main').innerHTML = (page === 0 ? renderOverview() : renderDay(days()[page-1], withNow)) + pager();
 }
 function render(){
-  document.querySelectorAll('#tzSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.tz === tz));
+  renderChrome();
   renderTabs();
   renderClock();
   renderMain();
@@ -657,26 +753,26 @@ function go(p){
   page = p; setHash(); render(); scrollToNow(true);
 }
 
-/* ---------- printing ---------- */
+/* ---------- printing: the current page only, without the now-marker ---------- */
 let printing = false;
-function printPages(all){
-  const list = all ? days().map(d => renderDay(d, false)) : [page === 0 ? renderOverview() : renderDay(days()[page-1], false)];
+$('#printBtn').addEventListener('click', () => {
   printing = true;
-  $('#main').innerHTML = list.join('');
-  const restore = () => { printing = false; renderMain(); };
-  addEventListener('afterprint', restore, {once:true});
+  renderMain(false);
+  addEventListener('afterprint', () => { printing = false; renderMain(); }, {once:true});
   window.print();
-}
-$('#printDay').addEventListener('click', () => printPages(false));
-$('#printAll').addEventListener('click', () => printPages(true));
+});
 
 /* ---------- events ---------- */
 $('#tzSeg').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.dataset.tz === tz) return;
   tz = b.dataset.tz; store.set('tz', tz);
-  const t = todayN(tz);
-  page = t > 0 ? t : Math.min(page, days().length);
+  const tn = todayN(tz);
+  page = tn > 0 ? tn : Math.min(page, days().length);
   setHash(); render(); scrollToNow(false);
+});
+$('#langSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.dataset.lang === lang) return;
+  lang = b.dataset.lang; store.set('lang', lang); render();
 });
 $('#tabs').addEventListener('click', e => {
   const b = e.target.closest('.tab'); if (b) go(+b.dataset.p);

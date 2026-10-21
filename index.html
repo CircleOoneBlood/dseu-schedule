@@ -357,7 +357,7 @@ const UI = {
   foot2:  L('线上只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期',
             'Online shows only the classes and livestreams at a suitable Beijing time · Use ← → or swipe to change day',
             '線上只顯示北京時間適合參加的課程與直播 · 鍵盤 ← → 或左右滑動切換日期'),
-  dateRangeAz: L('10月17日 – 10月29日','Oct 17 – Oct 29','10月17日 – 10月29日'),
+  dateRangeAz: L('10月17日 – 10月28日','Oct 17 – Oct 28','10月17日 – 10月28日'),
 };
 const WEEK = {
   zh:['周日','周一','周二','周三','周四','周五','周六'],
@@ -482,8 +482,7 @@ const TRIP = [
   [21, L('课程','Classes','課程'),1],[22, L('课程','Classes','課程'),2],[23, L('课程','Classes','課程'),3],
   [24, L('课程 · 玄奘塔（上午）','Classes · XZ Tower (AM)','課程 · 玄奘塔（上午）'),4],
   [25, L('课程','Classes','課程'),5],[26, L('课程','Classes','課程'),6],[27, L('课程','Classes','課程'),7],
-  [28, L('周年庆典 + 音乐会','Anniversary Ceremony + Concert','週年慶典 + 音樂會'),8],
-  [29, L('离开','Departure','離開')],
+  [28, L('周年庆典 + 音乐会','Anniversary Ceremony + Concert','週年慶典 + 音樂會'),8]
 ];
 const COUNTS = [
   [L('GMR SLP','GMR SLP','GMR SLP'),4],
@@ -602,7 +601,7 @@ function renderChrome(){
 
 function renderTabs(){
   const tn = todayN(tz), list = days();
-  const range = tz === 'az' ? '10/17–10/29' : `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
+  const range = tz === 'az' ? '10/17–10/28' : `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
   let html = `<button class="tab" role="tab" data-p="0" aria-selected="${page===0}"><span class="t1">${esc(t('overview'))}</span><span class="t2">${range}</span></button>`;
   list.forEach((day, i) => {
     const d = dateOf(day), p = i + 1;

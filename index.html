@@ -323,16 +323,16 @@ const LANGS = {zh:'zh-CN', en:'en', zt:'zh-Hant'};
 const L = (zh, en, zt) => ({zh, en, zt});
 const UI = {
   title1: L('DSEU 第七次课程安排','DSEU Session 7 Schedule','DSEU 第七次課程安排'),
-  title2: L('龙首谷','Dragon Head Valley','龍首谷'),
+  title2: L('龙首谷','Dragonshead','龍首谷'),
   sub:    L('金刚丝绸创业大学第二届先锋班课程','Diamond Silk Entrepreneur University · 2nd Pioneer Class','金剛絲綢創業大學第二屆先鋒班課程'),
   uniCn:  L('金刚丝绸创业大学','金刚丝绸创业大学','金剛絲綢創業大學'),
   onsite: L('线下','On-site','線下'),
   online: L('线上','Online','線上'),
-  azTime: L('龙首谷时间','Valley time','龍首谷時間'),
+  azTime: L('龙首谷时间','Dragonshead time','龍首谷時間'),
   bjTime: L('北京时间','Beijing time','北京時間'),
   azShort:L('亚利桑那 UTC−7','Arizona · UTC−7','亞利桑那 UTC−7'),
   bjShort:L('UTC+8','UTC+8','UTC+8'),
-  azClock:L('龙首谷','Valley','龍首谷'),
+  azClock:L('龙首谷','Dragonshead','龍首谷'),
   bjClock:L('北京','Beijing','北京'),
   modeAria:L('线上 / 线下','On-site / Online','線上 / 線下'),
   overview:L('总览','Overview','總覽'),
@@ -352,7 +352,7 @@ const UI = {
   next:   L('下一页 →','Next →','下一頁 →'),
   print:  L('打印当前页面（可在打印窗口选择「另存为 PDF」）','Print this page (choose “Save as PDF” in the print dialog)','列印目前頁面（可在列印視窗選擇「另存為 PDF」）'),
   foot1:  L('龙首谷位于美国亚利桑那州（全年不实行夏令时，UTC−7）· 北京时间 = 龙首谷时间 + 15 小时',
-            'Dragon Head Valley is in Arizona, USA (no daylight saving, UTC−7) · Beijing time = Valley time + 15 h',
+            'Dragonshead is in Arizona, USA (no daylight saving, UTC−7) · Beijing time = Dragonshead time + 15 h',
             '龍首谷位於美國亞利桑那州（全年不實行夏令時，UTC−7）· 北京時間 = 龍首谷時間 + 15 小時'),
   foot2:  L('线上只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期',
             'Online shows only the classes and livestreams at a suitable Beijing time · Use ← → or swipe to change day',
@@ -372,8 +372,9 @@ const E = (cat, zh, en, zt) => ({cat, zh, en, zt});
 const lunch = E('gen','午餐','Lunch','午餐');
 const gd    = E('gen','小组讨论','Group Discussion','小組討論');
 const audit = E('audit','旁听','Audit','旁聽');
-const dhd   = E('dhd','DHD 龙首谷建设课','DHD Valley Development Class','DHD 龍首谷建設課');
+const dhd   = E('dhd','DHD 龙首谷建设课','DHD Dragonshead Development Class','DHD 龍首谷建設課');
 const tba   = E('free','待安排','To be arranged','待安排');
+const checkin = E('gen','签到','Check-in','簽到');
 const prep  = E('act','节目彩排 + 周年庆准备','Rehearsal + Anniversary Preparation','節目彩排 + 週年慶準備');
 const reh   = E('act','节目彩排','Rehearsal','節目彩排');
 const rox = n => E('rox','Roxanne · 责任领导与企业责任 '+n,'Roxanne · Responsible Leadership & Corporate Responsibility '+n,'Roxanne · 責任領導與企業責任 '+n);
@@ -399,56 +400,71 @@ const ONSITE = [
  {n:1, d:21, slots:[
   ['10:00','12:00', all(E('gen','团队和义工做最后搭建','Final Setup by Team and Volunteers','團隊和義工做最後搭建'))],
   ['12:00','12:30', all(lunch)],
+  ['15:30','16:00', all(checkin)],
   ['16:00','17:15', [[audit,0,1],[pep1,1,1],[audit,2,1]]],
   ['17:45','18:45', [[audit,0,1],[pep2,1,1],[audit,2,1]]],
  ]},
  {n:2, d:22, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','10:15', all(med1)],
   ['10:45','12:00', [[dhd,0,1],[rox(1),1,2]]],
   ['12:00','13:00', all(lunch)],
+  ['14:45','15:00', all(checkin)],
   ['15:00','16:15', [[gd,0,1],[gd,1,1],[gd,2,1]]],
   ['16:00','17:15', [[gmr('GMR SLP 1'),0,1],[rox(2),1,2]]],
   ['17:45','18:45', all(pep3)],
  ]},
  {n:3, d:23, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','10:15', [[letter(1),0,2],[dhd,2,1]]],
   ['10:35','11:50', [[dhd,0,1],[rox(3),1,2]]],
   ['11:50','12:50', all(lunch)],
+  ['14:35','14:50', all(checkin)],
   ['14:50','15:50', [[gd,0,1]]],
   ['16:00','17:15', [[audit,0,1],[audit,1,1],[gmr('GMR YLP 1'),2,1]]],
   ['17:30','18:30', [[gmr('GMR SLP 2'),0,1],[gd,1,1],[gd,2,1]]],
  ]},
  {n:4, d:24, slots:[
+  ['09:45','10:00', all(checkin)],
   ['10:00','11:00', all(E('med','冥想课','Meditation Class','冥想課'))],
   ['11:00','12:00', all(gmr('玄奘塔翻译课','XZ Tower · Xuanzang Tower Translation Class','玄奘塔翻譯課'))],
   ['12:00','13:00', all(lunch)],
+  ['14:45','15:00', all(checkin)],
   ['15:00','16:15', [[gd,0,1],[rox(3),1,2]]],
   ['16:45','18:00', [[ocean1,0,1],[gd,1,1],[gd,2,1]]],
  ]},
  {n:5, d:25, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','12:00', all(E('dhd','建设课 + 周年庆节目排练','Development Class + Anniversary Performance Rehearsal','建設課 + 週年慶節目排練'))],
-  ['12:00','15:30', all(tba)],
+  ['12:00','15:15', all(tba)],
+  ['15:15','15:30', all(checkin)],
   ['15:30','17:00', all(E('act','圣多纳粉红吉普之旅','Sedona Pink Jeep Tour','聖多納粉紅吉普之旅'))],
  ]},
  {n:6, d:26, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','11:00', all(med2)],
   ['11:00','12:00', all(dhd)],
   ['12:00','13:00', all(lunch)],
+  ['14:30','14:45', all(checkin)],
   ['14:45','15:45', all(tba)],
   ['16:00','17:15', [[gmr('GMR SLP 3'),0,1],[gd,1,1],[gd,2,1]]],
   ['17:45','18:45', [[audit,0,1],[audit,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang','陳唐教授授課'),2,1]]],
  ]},
  {n:7, d:27, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置','Development Class · Anniversary Venue / Concert Setup','建設課 · 週年慶會場 / 音樂會佈置'))],
   ['10:45','12:00', all(reh)],
   ['12:00','13:00', all(lunch)],
+  ['14:15','14:30', all(checkin)],
   ['14:30','15:45', all(E('gen','小组展示','Group Presentation','小組展示'))],
   ['16:00','17:15', all(pep4)],
   ['17:45','18:45', all(E('act','GMR 节目彩排','GMR Rehearsal','GMR 節目彩排'))],
  ]},
  {n:8, d:28, slots:[
+  ['08:45','09:00', all(checkin)],
   ['09:00','12:00', all(prep)],
   ['12:00','13:00', all(lunch)],
+  ['13:45','14:00', all(checkin)],
   ['14:00','16:00', all(prep)],
   ['16:00','16:20', all(zhou), live],
   ['16:20','16:40', all(chen), live],
@@ -462,7 +478,7 @@ const TRIP = [
   [17, L('抵达三藩市','Arrive in San Francisco','抵達三藩市')],
   [18, L('斯坦福大学','Stanford','史丹佛大學')],
   [19, L('英伟达','NVIDIA','輝達')],
-  [20, L('三藩市 → 凤凰城 → 龙首谷','SF → Phoenix → Dragon Head Valley','三藩市 → 鳳凰城 → 龍首谷')],
+  [20, L('三藩市 → 凤凰城 → 龙首谷','SF → Phoenix → Dragonshead','三藩市 → 鳳凰城 → 龍首谷')],
   [21, L('课程','Classes','課程'),1],[22, L('课程','Classes','課程'),2],[23, L('课程','Classes','課程'),3],
   [24, L('课程 · 玄奘塔（上午）','Classes · XZ Tower (AM)','課程 · 玄奘塔（上午）'),4],
   [25, L('课程','Classes','課程'),5],[26, L('课程','Classes','課程'),6],[27, L('课程','Classes','課程'),7],
@@ -484,7 +500,7 @@ const LEGEND = [
   ['gmr', L('GMR 课程 · 玄奘塔','GMR programs · XZ Tower','GMR 課程 · 玄奘塔')],
   ['med', L('冥想 · 陈教授 · 演讲','Meditation · Prof. Chen · Speeches','冥想 · 陳教授 · 演講')],
   ['rox', L('Roxanne · 责任领导','Roxanne · Responsible Leadership','Roxanne · 責任領導')],
-  ['dhd', L('龙首谷建设','Valley development','龍首谷建設')],
+  ['dhd', L('龙首谷建设','Dragonshead development','龍首谷建設')],
   ['act', L('活动 · 彩排 · 音乐会','Activities · Rehearsals · Concert','活動 · 彩排 · 音樂會')],
   ['gen', L('用餐 · 讨论 · 其他','Meals · Discussions · General','用餐 · 討論 · 其他')],
 ];

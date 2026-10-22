@@ -140,6 +140,8 @@ main{padding:24px 0 40px}
   display:flex;flex-direction:column;justify-content:center}
 .card::before{content:"";position:absolute;left:14px;top:50%;margin-top:-4.5px;width:9px;height:9px;border-radius:50%;background:var(--c)}
 .card .zh{font-size:19.5px;font-weight:700;line-height:1.4}
+.card .room{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:14.5px;font-weight:600;color:var(--muted);line-height:1.35}
+.card .room svg{width:13px;height:13px;flex:none;color:var(--c)}
 .card .badge{display:none;font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--c);margin-bottom:4px}
 .card.audit{background:rgba(14,32,80,.3);border:1px dashed rgba(255,255,255,.18)}
 .card.audit .zh{font-weight:600;color:var(--muted)}
@@ -262,6 +264,8 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
   .card.audit,.card.free{background:rgba(14,32,80,.5)}
   .card::before{left:10px;width:7px;height:7px;margin-top:-3.5px}
   .card .zh{font-size:15px}
+  .card .room{font-size:11px;margin-top:1px;gap:3px}
+  .card .room svg{width:10px;height:10px}
   .card .badge{display:none!important}
   .gapt{font-size:12px;padding:6px 2px}
   .ov{grid-template-columns:1fr 1fr}
@@ -357,6 +361,8 @@ const UI = {
   foot2:  L('线上只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期',
             'Online shows only the classes and livestreams at a suitable Beijing time · Use ← → or swipe to change day',
             '線上只顯示北京時間適合參加的課程與直播 · 鍵盤 ← → 或左右滑動切換日期'),
+  roomVajra: L('金刚屋','Diamond House','金剛屋'),
+  roomMain:  L('龙首谷主楼教室','Dragonshead Main Building','龍首谷主樓教室'),
   dateRangeAz: L('10月17日 – 10月28日','Oct 17 – Oct 28','10月17日 – 10月28日'),
 };
 const WEEK = {
@@ -620,13 +626,25 @@ function renderTabs(){
   if (sel) strip.scrollTo({left: sel.offsetLeft - strip.offsetLeft - (strip.clientWidth - sel.offsetWidth)/2, behavior:'smooth'});
 }
 
+// 线下教室: SLP classes are in 金刚屋; the other programs' classes and Roxanne's are in the main building
+const PROGRAM_CLASS = /^(GMR )?(SLP|PEP|YLP) \d/;
+const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+function roomOf(ev, col, span){
+  if (tz !== 'az') return null;
+  if (ev.cat === 'rox') return 'roomMain';
+  if (ev.cat !== 'gmr' || !PROGRAM_CLASS.test(ev.en)) return null;
+  return col === 0 && span === 1 ? 'roomVajra' : 'roomMain';
+}
+
 function cardHTML(ev, col, span){
+  const room = roomOf(ev, col, span);
   const badge = span === 3 ? '' : TRACKS.slice(col, col+span).join(' · ');
   const cls = ['card','c-'+ev.cat, ev.cat==='audit'?'audit':'', ev.cat==='free'?'free':''].join(' ');
   const gc = `${col+1} / span ${span}`;
   return `<div class="${cls}" style="grid-column:${gc};--gc:${gc}">
     ${badge?`<div class="badge">${badge}</div>`:''}
     <div class="zh">${esc(nm(ev))}</div>
+    ${room?`<div class="room">${PIN}${esc(t(room))}</div>`:''}
   </div>`;
 }
 

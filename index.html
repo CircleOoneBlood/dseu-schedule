@@ -373,7 +373,10 @@ const lunch = E('gen','午餐','Lunch','午餐');
 const gd    = E('gen','小组讨论','Group Discussion','小組討論');
 const audit = E('audit','旁听','Audit','旁聽');
 const dhd   = E('dhd','DHD 龙首谷建设课','DHD Dragonshead Development Class','DHD 龍首谷建設課');
+const dhdCook = E('dhd','DHD 龙首谷建设课 · 做饭','DHD Dragonshead Development Class · Cooking','DHD 龍首谷建設課 · 做飯');
+const photo = n => E('act','合影（方案 '+n+'）','Group Photo (Option '+n+')','合影（方案 '+n+'）');
 const tba   = E('free','待安排','To be arranged','待安排');
+const dismiss = E('free','下课','Dismissed','下課');
 const checkin = E('gen','签到','Check-in','簽到');
 const prep  = E('act','节目彩排 + 周年庆准备','Rehearsal + Anniversary Preparation','節目彩排 + 週年慶準備');
 const reh   = E('act','节目彩排','Rehearsal','節目彩排');
@@ -386,7 +389,6 @@ const pep4 = gmr('GMR PEP 4 · 责任型领导','GMR PEP 4 · Responsible Leader
 const med1 = E('med','冥想课 1 · 陈唐教授','Meditation Class 1 · Prof. Chen Tang','冥想課 1 · 陳唐教授');
 const med2 = E('med','冥想课 2 · 陈唐教授','Meditation Class 2 · Prof. Chen Tang','冥想課 2 · 陳唐教授');
 const letter = n => E('med','亲友书 '+n+' · 陈教授','Letter to a Friend '+n+' · Prof. Chen','親友書 '+n+' · 陳教授');
-const ocean1 = E('med','正理海 1 · 陈唐教授','Ocean of Reasoning 1 · Prof. Chen Tang','正理海 1 · 陳唐教授');
 const zhou  = E('med','周校长 · 周年庆演讲','President Xiaoping Zhou · Anniversary Speech','周校長 · 週年慶演講');
 const chen  = E('med','陈教授 · 周年庆演讲','Prof. Stanley Chen · Anniversary Speech','陳教授 · 週年慶演講');
 const trans = E('gen','转场','Transition','轉場');
@@ -407,10 +409,10 @@ const ONSITE = [
  {n:2, d:22, slots:[
   ['08:45','09:00', all(checkin)],
   ['09:00','10:15', all(med1)],
-  ['10:45','12:00', [[dhd,0,1],[rox(1),1,2]]],
+  ['10:45','12:00', [[dhdCook,0,1],[rox(1),1,2]]],
   ['12:00','13:00', all(lunch)],
-  ['15:00','16:15', [[gd,0,1],[gd,1,1],[gd,2,1]]],
-  ['15:45','16:00', all(checkin)],
+  ['14:45','15:00', all(checkin)],
+  ['15:00','15:50', [[gd,0,1],[gd,1,1],[gd,2,1]]],
   ['16:00','17:15', [[gmr('GMR SLP 1'),0,1],[rox(2),1,2]]],
   ['17:45','18:45', all(pep3)],
  ]},
@@ -419,40 +421,43 @@ const ONSITE = [
   ['09:00','10:15', [[letter(1),0,2],[dhd,2,1]]],
   ['10:35','11:50', [[dhd,0,1],[rox(3),1,2]]],
   ['11:50','12:50', all(lunch)],
+  ['14:35','14:50', all(checkin)],
   ['14:50','15:50', [[gd,0,1]]],
-  ['15:45','16:00', all(checkin)],
-  ['16:00','17:15', [[audit,0,1],[audit,1,1],[gmr('GMR YLP 1'),2,1]]],
-  ['17:30','18:30', [[gmr('GMR SLP 2'),0,1],[gd,1,1],[gd,2,1]]],
+  ['15:50','16:00', [[photo(1),1,1]]],
+  ['16:00','17:15', [[gmr('GMR SLP 2'),0,1],[gd,1,1],[gd,2,1]]],
+  ['17:30','18:30', [[audit,0,1],[audit,1,1],[gmr('GMR YLP 1'),2,1]]],
  ]},
  {n:4, d:24, slots:[
-  ['09:45','10:00', all(checkin)],
+  ['08:30','08:45', all(checkin)],
+  ['08:45','09:45', all(gmr('特别翻译课','Special Translation Class','特別翻譯課'))],
   ['10:00','11:00', all(E('med','冥想课','Meditation Class','冥想課'))],
   ['11:00','12:00', all(gmr('玄奘塔翻译课','XZ Tower · Xuanzang Tower Translation Class','玄奘塔翻譯課'))],
   ['12:00','13:00', all(lunch)],
-  ['14:45','15:00', all(checkin)],
-  ['15:00','16:15', [[gd,0,1],[rox(3),1,2]]],
-  ['16:45','18:00', [[ocean1,0,1],[gd,1,1],[gd,2,1]]],
+  ['15:15','15:30', all(checkin)],
+  ['15:30','16:30', [[gd,0,1],[gd,1,1],[gd,2,1]]],
+  ['16:30','18:00', [[dhd,0,1],[dhd,1,1],[dhdCook,2,1]]],
  ]},
  {n:5, d:25, slots:[
   ['08:45','09:00', all(checkin)],
-  ['09:00','12:00', all(E('dhd','建设课 + 周年庆节目排练','Development Class + Anniversary Performance Rehearsal','建設課 + 週年慶節目排練'))],
+  ['09:00','12:00', all(E('act','周年庆节目排练','Anniversary Performance Rehearsal','週年慶節目排練'))],
   ['12:00','15:15', all(tba)],
   ['15:15','15:30', all(checkin)],
   ['15:30','17:00', all(E('act','圣多纳粉红吉普之旅','Sedona Pink Jeep Tour','聖多納粉紅吉普之旅'))],
  ]},
  {n:6, d:26, slots:[
   ['08:45','09:00', all(checkin)],
-  ['09:00','11:00', all(med2)],
-  ['11:00','12:00', all(dhd)],
+  ['09:00','10:00', all(med2)],
+  ['10:00','11:00', all(E('med','瑜伽课 · 陈唐教授','Yoga Class · Prof. Chen Tang','瑜伽課 · 陳唐教授'))],
+  ['11:00','12:00', [[dhd,0,1],[dhdCook,1,1],[dhd,2,1]]],
   ['12:00','13:00', all(lunch)],
-  ['14:45','15:45', all(tba)],
   ['15:45','16:00', all(checkin)],
+  ['15:45','16:00', [[photo(2),1,1]]],
   ['16:00','17:15', [[gmr('GMR SLP 3'),0,1],[gd,1,1],[gd,2,1]]],
-  ['17:45','18:45', [[audit,0,1],[audit,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang','陳唐教授授課'),2,1]]],
+  ['17:45','18:45', [[dismiss,0,1],[dismiss,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang','陳唐教授授課'),2,1]]],
  ]},
  {n:7, d:27, slots:[
   ['08:45','09:00', all(checkin)],
-  ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置','Development Class · Anniversary Venue / Concert Setup','建設課 · 週年慶會場 / 音樂會佈置'))],
+  ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置（10 位同学协助搭建，其他同学参与其他建设课）','Development Class · Anniversary Venue / Concert Setup (10 students help with the setup; the others join other development classes)','建設課 · 週年慶會場 / 音樂會佈置（10 位同學協助搭建，其他同學參與其他建設課）'))],
   ['10:45','12:00', all(reh)],
   ['12:00','13:00', all(lunch)],
   ['14:15','14:30', all(checkin)],

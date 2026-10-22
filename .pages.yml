@@ -1,6 +1,0 @@
-# Pages CMS (https://app.pagescms.org) — staff upload the edited Excel here (Media);
-# the newest .xlsx in data/excel/ is what the site shows (see .github/workflows/deploy.yml)
-media:
-  input: data/excel
-  output: /data/excel
-  categories: [spreadsheet]

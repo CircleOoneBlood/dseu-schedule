@@ -1,0 +1,20 @@
+# Pages CMS (https://app.pagescms.org) — staff edit the schedule as spreadsheets; saving commits to this repo
+# The CSV files can also be opened and saved in Excel (keep the header row and the file name)
+content:
+  - name: schedule
+    label: 课表（线下 · 龙首谷时间）
+    type: file
+    path: data/schedule.csv
+    format: datagrid
+
+  - name: trip
+    label: 总览 · 行程
+    type: file
+    path: data/trip.csv
+    format: datagrid
+
+  - name: counts
+    label: 总览 · 课程数量
+    type: file
+    path: data/counts.csv
+    format: datagrid

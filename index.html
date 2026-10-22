@@ -316,7 +316,7 @@ footer{color:var(--faint);font-size:14.5px;text-align:center;padding:10px 0 40px
 </div>
 
 <script>
-(function(){
+(async function(){
 /* ---------- languages: zh = 简体, en = English, zt = 繁體 ---------- */
 const LANGS = {zh:'zh-CN', en:'en', zt:'zh-Hant'};
 // L(zh, en, zt) — every user-visible string comes in all three
@@ -357,7 +357,6 @@ const UI = {
   foot2:  L('线上只显示北京时间适合参加的课程与直播 · 键盘 ← → 或左右滑动切换日期',
             'Online shows only the classes and livestreams at a suitable Beijing time · Use ← → or swipe to change day',
             '線上只顯示北京時間適合參加的課程與直播 · 鍵盤 ← → 或左右滑動切換日期'),
-  dateRangeAz: L('10月17日 – 10月28日','Oct 17 – Oct 28','10月17日 – 10月28日'),
 };
 const WEEK = {
   zh:['周日','周一','周二','周三','周四','周五','周六'],
@@ -368,133 +367,85 @@ const MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','N
 const CN = ['一','二','三','四','五','六','七','八'];
 const TRACKS = ['SLP','PEP','YLP'];
 
-const E = (cat, zh, en, zt) => ({cat, zh, en, zt});
-const lunch = E('gen','午餐','Lunch','午餐');
-const gd    = E('gen','小组讨论','Group Discussion','小組討論');
-const audit = E('audit','旁听','Audit','旁聽');
-const dhd   = E('dhd','DHD 龙首谷建设课','DHD Dragonshead Development Class','DHD 龍首谷建設課');
-const tba   = E('free','待安排','To be arranged','待安排');
-const checkin = E('gen','签到','Check-in','簽到');
-const prep  = E('act','节目彩排 + 周年庆准备','Rehearsal + Anniversary Preparation','節目彩排 + 週年慶準備');
-const reh   = E('act','节目彩排','Rehearsal','節目彩排');
-const rox = n => E('rox','Roxanne · 责任领导与企业责任 '+n,'Roxanne · Responsible Leadership & Corporate Responsibility '+n,'Roxanne · 責任領導與企業責任 '+n);
-const gmr = (zh, en, zt) => E('gmr', zh, en || zh, zt || zh);
-const pep1 = gmr('GMR PEP 1 · 企业社会责任','GMR PEP 1 · Corporate Social Responsibility','GMR PEP 1 · 企業社會責任');
-const pep2 = gmr('GMR PEP 2 · 企业社会责任','GMR PEP 2 · Corporate Social Responsibility','GMR PEP 2 · 企業社會責任');
-const pep3 = gmr('GMR PEP 3 · 责任型领导','GMR PEP 3 · Responsible Leadership','GMR PEP 3 · 責任型領導');
-const pep4 = gmr('GMR PEP 4 · 责任型领导','GMR PEP 4 · Responsible Leadership','GMR PEP 4 · 責任型領導');
-const med1 = E('med','冥想课 1 · 陈唐教授','Meditation Class 1 · Prof. Chen Tang','冥想課 1 · 陳唐教授');
-const med2 = E('med','冥想课 2 · 陈唐教授','Meditation Class 2 · Prof. Chen Tang','冥想課 2 · 陳唐教授');
-const letter = n => E('med','亲友书 '+n+' · 陈教授','Letter to a Friend '+n+' · Prof. Chen','親友書 '+n+' · 陳教授');
-const ocean1 = E('med','正理海 1 · 陈唐教授','Ocean of Reasoning 1 · Prof. Chen Tang','正理海 1 · 陳唐教授');
-const zhou  = E('med','周校长 · 周年庆演讲','President Xiaoping Zhou · Anniversary Speech','周校長 · 週年慶演講');
-const chen  = E('med','陈教授 · 周年庆演讲','Prof. Stanley Chen · Anniversary Speech','陳教授 · 週年慶演講');
-const trans = E('gen','转场','Transition','轉場');
-const concert = E('act','周年庆音乐会','Anniversary Concert','週年慶音樂會');
+/* ---------- data: data/*.csv — staff edit these as spreadsheets (Pages CMS or Excel) ---------- */
 const live = 'live';  // marks the livestreamed anniversary sessions (kept in the online view)
-const all = e => [[e,0,3]];
+// 班级 → [first column, span] in the SLP / PEP / YLP grid
+const TRACK_COLS = {'全部':[0,3], 'SLP':[0,1], 'PEP':[1,1], 'YLP':[2,1], 'SLP+PEP':[0,2], 'PEP+YLP':[1,2]};
+// 类别 → colour category
+const CATS = {'GMR':'gmr', '冥想':'med', 'Roxanne':'rox', '建设':'dhd', '活动':'act', '一般':'gen', '旁听':'audit', '待安排':'free'};
+
+// minimal RFC 4180 parser (quoted fields, commas/newlines inside quotes, Excel's BOM); returns rows as {header: value}
+function parseCSV(text){
+  const rows = []; let row = [], f = '', q = false;
+  text = text.replace(/^﻿/, '');
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){
+      if (c === '"'){ if (text[i+1] === '"'){ f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(f); f = ''; }
+    else if (c === '\n' || c === '\r'){
+      if (c === '\r' && text[i+1] === '\n') i++;
+      row.push(f); rows.push(row); row = []; f = '';
+    } else f += c;
+  }
+  if (f || row.length){ row.push(f); rows.push(row); }
+  const head = (rows.shift() || []).map(h => h.trim());
+  return rows.filter(r => r.some(v => v.trim()))
+    .map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()])));
+}
+const getCSV = url => fetch(url, {cache:'no-cache'}).then(r => { if (!r.ok) throw new Error(url+' '+r.status); return r.text(); }).then(parseCSV);
+// "10/21", "2026/10/21", "10/21/2026" (Excel), "10月21日" → 21 (the session is all in October)
+const dayOf = v => {
+  const n = (String(v).match(/\d+/g) || []).map(Number).filter(x => x < 1000);
+  if (n.length < 2) return n.length ? n[0] : NaN;
+  const [a, b] = n.slice(-2);
+  return a === 10 ? b : b === 10 ? a : b;
+};
+// "9:00", "09:00:00", "2:30 PM", "下午2:30" → "HH:MM"
+const hhmm = v => {
+  const m = String(v).match(/(\d{1,2})[:：](\d{2})/); if (!m) return '';
+  let h = +m[1];
+  if (/pm|下午|晚上/i.test(v) && h < 12) h += 12;
+  if (/am|上午|凌晨/i.test(v) && h === 12) h = 0;
+  return pad(h)+':'+m[2];
+};
+const pad = n => String(n).padStart(2,'0');
+const label = r => L(r['简体'] || r['课程（简体）'], r['English'] || r['简体'] || r['课程（简体）'], r['繁體'] || r['简体'] || r['课程（简体）']);
+
+let schedRows, tripRows, countRows;
+try {
+  [schedRows, tripRows, countRows] = await Promise.all(['data/schedule.csv', 'data/trip.csv', 'data/counts.csv'].map(getCSV));
+} catch (err) {
+  document.getElementById('main').innerHTML = '<p style="padding:40px 0;text-align:center">课表加载失败，请刷新页面重试 · Failed to load the schedule, please refresh</p>';
+  throw err;
+}
 
 // slot: [start, end, cells[[event, col, span]], live?] — times are wall times in the schedule's own zone
-// 线下（龙首谷 / 亚利桑那时间）
-const ONSITE = [
- {n:1, d:21, slots:[
-  ['10:00','12:00', all(E('gen','团队和义工做最后搭建','Final Setup by Team and Volunteers','團隊和義工做最後搭建'))],
-  ['12:00','12:30', all(lunch)],
-  ['15:30','16:00', all(checkin)],
-  ['16:00','17:15', [[audit,0,1],[pep1,1,1],[audit,2,1]]],
-  ['17:45','18:45', [[audit,0,1],[pep2,1,1],[audit,2,1]]],
- ]},
- {n:2, d:22, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','10:15', all(med1)],
-  ['10:45','12:00', [[dhd,0,1],[rox(1),1,2]]],
-  ['12:00','13:00', all(lunch)],
-  ['15:00','16:15', [[gd,0,1],[gd,1,1],[gd,2,1]]],
-  ['15:45','16:00', all(checkin)],
-  ['16:00','17:15', [[gmr('GMR SLP 1'),0,1],[rox(2),1,2]]],
-  ['17:45','18:45', all(pep3)],
- ]},
- {n:3, d:23, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','10:15', [[letter(1),0,2],[dhd,2,1]]],
-  ['10:35','11:50', [[dhd,0,1],[rox(3),1,2]]],
-  ['11:50','12:50', all(lunch)],
-  ['14:50','15:50', [[gd,0,1]]],
-  ['15:45','16:00', all(checkin)],
-  ['16:00','17:15', [[audit,0,1],[audit,1,1],[gmr('GMR YLP 1'),2,1]]],
-  ['17:30','18:30', [[gmr('GMR SLP 2'),0,1],[gd,1,1],[gd,2,1]]],
- ]},
- {n:4, d:24, slots:[
-  ['09:45','10:00', all(checkin)],
-  ['10:00','11:00', all(E('med','冥想课','Meditation Class','冥想課'))],
-  ['11:00','12:00', all(gmr('玄奘塔翻译课','XZ Tower · Xuanzang Tower Translation Class','玄奘塔翻譯課'))],
-  ['12:00','13:00', all(lunch)],
-  ['14:45','15:00', all(checkin)],
-  ['15:00','16:15', [[gd,0,1],[rox(3),1,2]]],
-  ['16:45','18:00', [[ocean1,0,1],[gd,1,1],[gd,2,1]]],
- ]},
- {n:5, d:25, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','12:00', all(E('dhd','建设课 + 周年庆节目排练','Development Class + Anniversary Performance Rehearsal','建設課 + 週年慶節目排練'))],
-  ['12:00','15:15', all(tba)],
-  ['15:15','15:30', all(checkin)],
-  ['15:30','17:00', all(E('act','圣多纳粉红吉普之旅','Sedona Pink Jeep Tour','聖多納粉紅吉普之旅'))],
- ]},
- {n:6, d:26, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','11:00', all(med2)],
-  ['11:00','12:00', all(dhd)],
-  ['12:00','13:00', all(lunch)],
-  ['14:45','15:45', all(tba)],
-  ['15:45','16:00', all(checkin)],
-  ['16:00','17:15', [[gmr('GMR SLP 3'),0,1],[gd,1,1],[gd,2,1]]],
-  ['17:45','18:45', [[audit,0,1],[audit,1,1],[E('med','陈唐教授授课','Lecture by Prof. Chen Tang','陳唐教授授課'),2,1]]],
- ]},
- {n:7, d:27, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','10:15', all(E('dhd','建设课 · 周年庆会场 / 音乐会布置','Development Class · Anniversary Venue / Concert Setup','建設課 · 週年慶會場 / 音樂會佈置'))],
-  ['10:45','12:00', all(reh)],
-  ['12:00','13:00', all(lunch)],
-  ['14:15','14:30', all(checkin)],
-  ['14:30','15:45', all(E('gen','小组展示','Group Presentation','小組展示'))],
-  ['16:00','17:15', all(pep4)],
-  ['17:45','18:45', all(E('act','GMR 节目彩排','GMR Rehearsal','GMR 節目彩排'))],
- ]},
- {n:8, d:28, slots:[
-  ['08:45','09:00', all(checkin)],
-  ['09:00','12:00', all(prep)],
-  ['12:00','13:00', all(lunch)],
-  ['13:45','14:00', all(checkin)],
-  ['14:00','16:00', all(prep)],
-  ['16:00','16:20', all(zhou), live],
-  ['16:20','16:40', all(chen), live],
-  ['17:00','18:00', all(gmr('PEP 5 · 责任型领导','PEP 5 · Responsible Leadership','PEP 5 · 責任型領導')), live],
-  ['18:00','18:30', all(trans), live],
-  ['18:30','20:30', all(concert), live],
- ]},
-];
+// 线下（龙首谷 / 亚利桑那时间）: one CSV row per card; rows sharing date + start + end form one slot
+const ONSITE = (() => {
+  const byDay = new Map();
+  for (const r of schedRows){
+    const d = dayOf(r['日期']), s = hhmm(r['开始']), e = hhmm(r['结束']);
+    if (!d || !s || !e) continue;
+    if (!byDay.has(d)) byDay.set(d, new Map());
+    const slots = byDay.get(d), key = s+'-'+e;
+    if (!slots.has(key)) slots.set(key, [s, e, [], undefined]);
+    const slot = slots.get(key);
+    slot[2].push([{cat: CATS[r['类别']] || 'gen', ...label(r)}, ...(TRACK_COLS[r['班级'].toUpperCase().replace(/\s/g,'')] || TRACK_COLS[r['班级']] || TRACK_COLS['全部'])]);
+    if (/^(是|y|yes|true|1|✓|√)$/i.test(r['直播'])) slot[3] = live;
+  }
+  return [...byDay].sort((x, y) => x[0] - y[0]).map(([d, slots], i) => ({
+    n: i + 1, d,
+    slots: [...slots.values()].sort((x, y) => x[0].localeCompare(y[0]) || x[1].localeCompare(y[1])),
+  }));
+})();
 
-const TRIP = [
-  [17, L('抵达三藩市','Arrive in San Francisco','抵達三藩市')],
-  [18, L('斯坦福大学','Stanford','史丹佛大學')],
-  [19, L('英伟达','NVIDIA','輝達')],
-  [20, L('三藩市 → 凤凰城 → 龙首谷','SF → Phoenix → Dragonshead','三藩市 → 鳳凰城 → 龍首谷')],
-  [21, L('课程','Classes','課程'),1],[22, L('课程','Classes','課程'),2],[23, L('课程','Classes','課程'),3],
-  [24, L('课程 · 玄奘塔（上午）','Classes · XZ Tower (AM)','課程 · 玄奘塔（上午）'),4],
-  [25, L('课程','Classes','課程'),5],[26, L('课程','Classes','課程'),6],[27, L('课程','Classes','課程'),7],
-  [28, L('周年庆典 + 音乐会','Anniversary Ceremony + Concert','週年慶典 + 音樂會'),8]
-];
-const COUNTS = [
-  [L('GMR SLP','GMR SLP','GMR SLP'),4],
-  [L('GMR PEP · 企业社会责任','GMR PEP · Corporate Social Responsibility','GMR PEP · 企業社會責任'),2],
-  [L('GMR PEP · 责任型领导','GMR PEP · Responsible Leadership','GMR PEP · 責任型領導'),2],
-  [L('GMR YLP','GMR YLP','GMR YLP'),3],
-  [L('玄奘塔 + 冥想','XZ Tower + Meditation','玄奘塔 + 冥想'),2],
-  [L('亲友书 · 陈教授','Letter to a Friend · Prof. Chen','親友書 · 陳教授'),2],
-  [L('冥想课 · SC','Meditation Class · SC','冥想課 · SC'),2],
-  [L('Roxanne · 责任领导与企业责任','Roxanne · Responsible Leadership & Corporate Responsibility','Roxanne · 責任領導與企業責任'),3],
-  [L('学长分享','Alumni Sharing','學長分享'),1],
-];
+// itinerary days that have classes link to their DAY page
+const TRIP = tripRows.map(r => dayOf(r['日期'])).map((d, i) => [d, label(tripRows[i]), (ONSITE.find(x => x.d === d) || {}).n])
+  .filter(t => t[0]).sort((x, y) => x[0] - y[0]);
+const COUNTS = countRows.map(r => [label(r), r['数量']]);
 const LEGEND = [
   ['gmr', L('GMR 课程 · 玄奘塔','GMR programs · XZ Tower','GMR 課程 · 玄奘塔')],
   ['med', L('冥想 · 陈教授 · 演讲','Meditation · Prof. Chen · Speeches','冥想 · 陳教授 · 演講')],
@@ -510,7 +461,6 @@ const toMin = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
 // absolute ms for a wall time <hm> on Oct <day>, 2026 in zone <z>
 const abs = (z, day, hm) => Date.UTC(2026, 9, day) + (toMin(hm) - OFF[z]*60) * 60000;
 const wall = (ms, z) => new Date(ms + OFF[z]*3600000); // read with getUTC*
-const pad = n => String(n).padStart(2,'0');
 const hm = d => pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());
 const md = d => (d.getUTCMonth()+1)+'/'+d.getUTCDate();
 const dateOf = day => new Date(Date.UTC(2026, 9, day.d));
@@ -601,7 +551,7 @@ function renderChrome(){
 
 function renderTabs(){
   const tn = todayN(tz), list = days();
-  const range = tz === 'az' ? '10/17–10/28' : `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
+  const range = tz === 'az' ? `10/${TRIP[0][0]}–10/${TRIP[TRIP.length-1][0]}` : `${md(dateOf(list[0]))}–${md(dateOf(list[list.length-1]))}`;
   let html = `<button class="tab" role="tab" data-p="0" aria-selected="${page===0}"><span class="t1">${esc(t('overview'))}</span><span class="t2">${range}</span></button>`;
   list.forEach((day, i) => {
     const d = dateOf(day), p = i + 1;
@@ -695,7 +645,7 @@ function renderOverview(){
   const go = (n, isToday) => `<span class="go">DAY ${n}${isToday?' · '+esc(t('today')):''} ›</span>`;
   let left, range;
   if (tz === 'az'){
-    range = t('dateRangeAz');
+    range = `${shortDate(new Date(Date.UTC(2026,9,TRIP[0][0])))} – ${shortDate(new Date(Date.UTC(2026,9,TRIP[TRIP.length-1][0])))}`;
     left = `<h3>${esc(t('itinerary'))}</h3><ul class="trip">` + TRIP.map(([d, label, n]) => {
       const dt = new Date(Date.UTC(2026,9,d));
       return `<li class="${n?'link':''}" ${n?`data-p="${n}"`:''}>

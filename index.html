@@ -363,6 +363,7 @@ const UI = {
             '線上只顯示北京時間適合參加的課程與直播 · 鍵盤 ← → 或左右滑動切換日期'),
   roomVajra: L('金刚屋','Diamond House','金剛屋'),
   roomMain:  L('龙首谷主楼教室','Dragonshead Main Building','龍首谷主樓教室'),
+  room3835:  L('3835','3835','3835'),
   dateRangeAz: L('10月17日 – 10月28日','Oct 17 – Oct 28','10月17日 – 10月28日'),
 };
 const WEEK = {
@@ -401,6 +402,7 @@ const trans = E('gen','转场','Transition','轉場');
 const concert = E('act','周年庆音乐会','Anniversary Concert','週年慶音樂會');
 const live = 'live';  // marks the livestreamed anniversary sessions (kept in the online view)
 const all = e => [[e,0,3]];
+const at = (room, e) => ({...e, room});  // override the classroom shown on the card
 
 // slot: [start, end, cells[[event, col, span]], live?] — times are wall times in the schedule's own zone
 // 线下（龙首谷 / 亚利桑那时间）
@@ -424,11 +426,11 @@ const ONSITE = [
  ]},
  {n:3, d:23, slots:[
   ['09:45','10:00', all(checkin)],
-  ['10:00','11:15', all(gmr('GMR SLP 2 · 东方课程','GMR SLP 2 · Eastern Studies','GMR SLP 2 · 東方課程'))],
-  ['11:30','12:30', all(gmr('GMR PEP · 东方课程','GMR PEP · Eastern Studies','GMR PEP · 東方課程'))],
+  ['10:00','11:15', all(at('room3835', gmr('GMR SLP 2 · 东方课程','GMR SLP 2 · Eastern Studies','GMR SLP 2 · 東方課程')))],
+  ['11:30','12:30', all(at('room3835', gmr('GMR PEP · 东方课程','GMR PEP · Eastern Studies','GMR PEP · 東方課程')))],
   ['15:45','16:00', all(checkin)],
-  ['16:00','17:15', all(rox(3))],
-  ['17:30','18:30', all(gmr('GMR YLP 1'))],
+  ['16:00','17:15', all(at('room3835', rox(3)))],
+  ['17:30','18:30', all(at('room3835', gmr('GMR YLP 1')))],
  ]},
  {n:4, d:24, slots:[
   ['08:30','08:45', all(checkin)],
@@ -629,6 +631,7 @@ const PROGRAM_CLASS = /^(GMR )?(SLP|PEP|YLP) \d/;
 const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 function roomOf(ev, col, span){
   if (tz !== 'az') return null;
+  if (ev.room) return ev.room;
   if (ev.cat === 'rox') return 'roomMain';
   if (ev.cat !== 'gmr' || !PROGRAM_CLASS.test(ev.en)) return null;
   return col === 0 && span === 1 ? 'roomVajra' : 'roomMain';
